@@ -64,6 +64,8 @@ void motortest() {
     motorRight.reverse(255);
     motorLeft.reverse(255);
     delay(1000);
+    motorRight.stop();
+    motorLeft.stop();
 }
 
 void setup() {
@@ -133,6 +135,8 @@ void loop() {
     servotest();
     servo.write(90);
     delay(servoPause);
+    delay(5000);
     motortest();
+    delay(5000);
 
 }
