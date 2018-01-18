@@ -1,5 +1,5 @@
 {
     "terminal.integrated.env.linux": {
-        "PATH": "/home/joachim/.platformio/penv/bin:/home/joachim/.sdkman/candidates/kotlin/current/bin:/home/joachim/.sdkman/candidates/groovy/current/bin:/home/joachim/bin:/home/joachim/.local/bin:/home/joachim/bin:/usr/local/bin:/usr/bin:/bin:/usr/lib/mit/sbin"
+        "PATH": "/home/joachim/.platformio/penv/bin:/home/joachim/.platformio/penv:/home/joachim/.sdkman/candidates/kotlin/current/bin:/home/joachim/.sdkman/candidates/groovy/current/bin:/home/joachim/bin:/home/joachim/.local/bin:/home/joachim/bin:/usr/local/bin:/usr/bin:/bin:/usr/lib/mit/sbin"
     }
 }
