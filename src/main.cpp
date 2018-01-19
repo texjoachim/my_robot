@@ -68,15 +68,23 @@ void motortest() {
     motorLeft.stop();
 }
 
-void setup() {
-    /* pinMode(2, OUTPUT);
-    pinMode(3, OUTPUT);
-    pinMode(9, OUTPUT);
+void turnRight(unsigned int speed, unsigned int turntime) {
+    motorRight.reverse(speed);
+    motorLeft.forward(speed);
+    delay(turntime);
+    motorRight.stop();
+    motorLeft.stop();
+}
 
-    pinMode(5, OUTPUT);
-    pinMode(4, OUTPUT);
-    pinMode(10, OUTPUT); */
-    
+void turnLeft(unsigned int speed, unsigned int turntime) {
+    motorRight.forward(speed);
+    motorLeft.reverse(speed);
+    delay(turntime);
+    motorRight.stop();
+    motorLeft.stop();
+}
+
+void setup() {
     servo.attach(12); // that's the servo pin
     delay(servoPause);
     servo.write(90); // ultrasonic sensor facing ahead
@@ -87,16 +95,29 @@ void setup() {
 }
 
 void loop() {
+
+//check if the main program should run or if we are just testing things
+if (digitalRead(A3) == LOW) { //A3 on GND to test the individual components
+    servotest();
+    servo.write(90);
+    delay(servoPause);
+    delay(2000);
+    motortest();
+    delay(2000);
+    turnRight(255, 1000);
+    turnLeft(255,1000);
+    delay(2000);
+} else if (digitalRead(A2) == LOW) { //A2 on GND to check the sensors
     // Serial.print("Rainsensor: ");
     // Serial.println(RegenSensor.analogread());
-    /* Serial.print("Distance front: ");
+    Serial.print("Distance front: ");
     Serial.println(US.getDistance());
     delay(500);
     Serial.print("Distance right: ");
     Serial.println(lookright());
     delay(500);
     Serial.print("Distance left: ");
-    Serial.println(lookleft()); */
+    Serial.println(lookleft());
     // Serial.print("It is ");
     // if (IRunten.isDark() == true) {
     //     Serial.println(" dark.");
@@ -105,38 +126,11 @@ void loop() {
     //     Serial.println(" light.");
     // }
     //delay(500);
+}
 
-
-    /* 
-    digitalWrite(2, HIGH);
-    digitalWrite(3, LOW);
-    analogWrite(9, 255);
-    delay(1000);
-    analogWrite(9,0);
-    digitalWrite(2, LOW);
-    digitalWrite(3, HIGH);
-    analogWrite(9, 255);
-    delay(1000);
-    analogWrite(9,0);
-    delay(3000);
-
-    digitalWrite(4, HIGH);
-    digitalWrite(5, LOW);
-    analogWrite(10, 255);
-    delay(1000);
-    analogWrite(10,0);
-    digitalWrite(4, LOW);
-    digitalWrite(5, HIGH);
-    analogWrite(10, 255);
-    delay(1000);
-    analogWrite(10,0);
-    delay(3000); */
-
-    servotest();
-    servo.write(90);
-    delay(servoPause);
-    delay(5000);
-    motortest();
-    delay(5000);
+//main program
+//drive forward until distance is less than 20cm then stop
+//then look left and right to determine the turn
+//turn and drive on
 
 }
