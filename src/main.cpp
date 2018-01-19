@@ -19,7 +19,7 @@ int distanceRight;
 int distanceLeft;
 
 // look to the right and get distance
-int lookright() {
+int lookRight() {
     int distance = 0;
     servo.write(10);
     delay(150);
@@ -30,7 +30,7 @@ int lookright() {
 }
 
 // look to the left and get distance
-int lookleft() {
+int lookLeft() {
     int distance = 0;
     servo.write(170);
     delay(150);
@@ -97,6 +97,7 @@ void setup() {
 void loop() {
 
 //check if the main program should run or if we are just testing things
+
 if (digitalRead(A3) == LOW) { //A3 on GND to test the individual components
     servotest();
     servo.write(90);
@@ -114,10 +115,10 @@ if (digitalRead(A3) == LOW) { //A3 on GND to test the individual components
     Serial.println(US.getDistance());
     delay(500);
     Serial.print("Distance right: ");
-    Serial.println(lookright());
+    Serial.println(lookRight());
     delay(500);
     Serial.print("Distance left: ");
-    Serial.println(lookleft());
+    Serial.println(lookLeft());
     // Serial.print("It is ");
     // if (IRunten.isDark() == true) {
     //     Serial.println(" dark.");
@@ -129,8 +130,34 @@ if (digitalRead(A3) == LOW) { //A3 on GND to test the individual components
 }
 
 //main program
-//drive forward until distance is less than 20cm then stop
-//then look left and right to determine the turn
-//turn and drive on
+
+while (US.getDistance() <= 20) {
+    motorRight.forward(255);
+    motorLeft.forward(255);
+}
+
+motorRight.stop();
+motorLeft.stop();
+delay(500);
+distanceRight = lookRight();
+distanceLeft = lookLeft();
+
+if (distanceRight == distanceLeft) {
+    motorRight.reverse(255);
+    motorLeft.reverse(255);
+    delay(250);
+    motorRight.stop();
+    motorLeft.stop();
+    distanceRight = lookRight();
+    distanceLeft = lookLeft();
+}
+
+if (distanceRight < distanceLeft) {
+    turnLeft(255, 250);
+} else {
+    turnRight(255, 250);
+}
+
+
 
 }
