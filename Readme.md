@@ -19,5 +19,5 @@ This is a small robot I got as a kit from China. It's a nice little kit.
 * 2 x IR/line-follower sensors
 
 I haven't added the additional sensors yet.
-The classes for the sensors and the DC motors are in a separate project. (LINK!)
+The classes for the sensors and the DC motors are [in a separate project](https://github.com/texjoachim/my_arduino_libraries).
 

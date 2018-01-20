@@ -21,7 +21,7 @@ int distanceLeft;
 // look to the right and get distance
 int lookRight() {
     int distance = 0;
-    servo.write(10);
+    servo.write(5);
     delay(150);
     distance = US.getDistance();
     servo.write(90);
@@ -32,7 +32,7 @@ int lookRight() {
 // look to the left and get distance
 int lookLeft() {
     int distance = 0;
-    servo.write(170);
+    servo.write(175);
     delay(150);
     distance = US.getDistance();
     servo.write(90);
@@ -89,6 +89,9 @@ void setup() {
     delay(servoPause);
     servo.write(90); // ultrasonic sensor facing ahead
     delay(servoPause); 
+    pinMode(A2, INPUT_PULLUP);
+    pinMode(A3, INPUT_PULLUP);
+    pinMode(A4, INPUT_PULLUP);
     Serial.begin(9600); 
 	Serial.println("My Robot");
 	Serial.println("--------");
@@ -127,37 +130,39 @@ if (digitalRead(A3) == LOW) { //A3 on GND to test the individual components
     //     Serial.println(" light.");
     // }
     //delay(500);
-}
+} else if (digitalRead(A4) == LOW) {
+    servo.write(90);
+    delay(servoPause);
 
-//main program
-
-while (US.getDistance() <= 20) {
     motorRight.forward(255);
     motorLeft.forward(255);
+
+    if (US.getDistance() <= 15) {
+        motorRight.stop();
+        motorLeft.stop();
+        delay(500);
+        distanceRight = lookRight();
+        delay(500);
+        distanceLeft = lookLeft();
+        delay(500);
+        servo.write(90);
+        delay(servoPause);
+
+        if (distanceRight == distanceLeft) {
+            motorRight.reverse(255);
+            motorLeft.reverse(255);
+            delay(250);
+            motorRight.stop();
+            motorLeft.stop();
+            distanceRight = lookRight();
+            distanceLeft = lookLeft();
+        }
+
+        if (distanceRight < distanceLeft) {
+            turnLeft(255, 250);
+        } else {
+            turnRight(255, 250);
+        }
+    }
 }
-
-motorRight.stop();
-motorLeft.stop();
-delay(500);
-distanceRight = lookRight();
-distanceLeft = lookLeft();
-
-if (distanceRight == distanceLeft) {
-    motorRight.reverse(255);
-    motorLeft.reverse(255);
-    delay(250);
-    motorRight.stop();
-    motorLeft.stop();
-    distanceRight = lookRight();
-    distanceLeft = lookLeft();
-}
-
-if (distanceRight < distanceLeft) {
-    turnLeft(255, 250);
-} else {
-    turnRight(255, 250);
-}
-
-
-
 }
