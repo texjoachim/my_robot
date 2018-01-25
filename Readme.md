@@ -10,7 +10,7 @@ This is a small robot I got as a kit from China. It's a nice little kit.
 * 1 x Sensor Shield V5 (There are no other shield versions, only V5. Don't ask me why.)
 * 1 x L298n motor driver board 
 * 2 x DC motors
-* 1 x SG90 servo
+* 2 x SG90 servo
 * 1 x ultrasonic sensor
 
 ### Additional parts:
