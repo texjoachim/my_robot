@@ -3,6 +3,9 @@
 ![robot photo](./robot.jpg)
 
 This is a small robot I got as a kit from China. It's a nice little kit.
+Here is the layout of the parts and wires:
+
+![parts and wires](./My_Robot_Steckplatine.jpg)
 
 ### The main parts are:
 
